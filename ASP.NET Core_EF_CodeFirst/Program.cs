@@ -9,9 +9,27 @@ namespace ASP.NET_Core_EF_CodeFirst
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddAuthorization();
+
+            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuer = true,
+            //            ValidIssuer = AuthOptions.ISSUER,
+            //            ValidateAudience = true,
+            //            ValidAudience = AuthOptions.AUDIENCE,
+            //            ValidateLifetime = true,
+            //            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            //            ValidateIssuerSigningKey = true,
+            //        };
+            //    });
+            
 
             // Add our services to the container.
             builder.Services.AddLocalServices();
@@ -27,7 +45,11 @@ namespace ASP.NET_Core_EF_CodeFirst
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            //app.Map("");
+            //app.Map("");
 
 
             app.MapControllers();

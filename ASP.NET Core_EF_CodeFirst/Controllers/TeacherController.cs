@@ -1,6 +1,8 @@
 ﻿using ASP.NET_Core_EF_CodeFirst.Models;
+using BLL.Models;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using ASP.NET_Core_EF_CodeFirst.Extensions.MappingExtensions;
 
 namespace ASP.NET_Core_EF_CodeFirst.Controllers
 {
@@ -8,36 +10,44 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        // GET: api/<TeacherController>
+        private readonly ITeacherService teacherService;
+        public TeacherController(ITeacherService teacherService)
+        {
+            this.teacherService = teacherService;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<TeacherModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            return teacherService.Get();
         }
 
-        // GET api/<TeacherController>/5
         [HttpGet("{id}")]
-        public TeacherModel Get(int id)
+        public TeacherModel Get([FromRoute] int id)
         {
-            return null;// TeacherService.GetTeacherById(id);
+            return teacherService.GetTeacherById(id);
         }
 
-        // POST api/<TeacherController>
         [HttpPost]
-        public void Add([FromBody] string value)
+        public void Add([FromBody] TeacherModel teacher)
         {
+            teacherService.AddTeacher(teacher);
         }
 
-        // PUT api/<TeacherController>/5
         [HttpPut("{id}")]
-        public void Update(int id, [FromBody] string value)
+        public void Update(int id, [FromBody] TeacherModel teacher)
         {
+            teacherService.Update(id, teacher);
+            
         }
 
-        // DELETE api/<TeacherController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpGet]
+        [Route("with-salary")]
+        public IEnumerable<TeacherWithSalaryModel> GetWithSalary()
         {
+            var a = teacherService.GetWithSalary();
+            return a.Select(x => x.MapToTeacherWithSalaryDto());
         }
     }
 }
+

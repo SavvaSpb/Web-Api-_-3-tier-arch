@@ -93,3 +93,10 @@ C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeF
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\DAL.dll
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\BLL.pdb
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\DAL.pdb
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Humanizer.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\System.CodeDom.dll

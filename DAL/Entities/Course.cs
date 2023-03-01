@@ -6,27 +6,24 @@ namespace DAL.Entities
     public class Course
     {
         [Key]
-        public int CoursesId { get; set; }
-
+        [Column("course_id", Order = 0)]
+        public int CourseId { get; set; }
 
         [Required]
-        [Column(Order = 1)]
-        public string CoursesTypeName { get; set; }
-
-
-        [Column(Order = 2)]
+        [Column("course_type_name", Order = 1)]
+        public string CourseTypeName { get; set; }
+        
         [ForeignKey(nameof(Institute))]
+        [Column("institute_id", Order = 2)]
         public int InstituteId { get; set; }
         public Institute Institute { get; set; }
 
-
-        [Column(Order = 3)]
-        [ForeignKey(nameof(Teachers))]
+        [ForeignKey(nameof(Teacher))]
+        [Column("teacher_id", Order = 3)]
         public int TeacherId { get; set; }
-        public Teacher Teachers { get; set; }
+        public Teacher Teacher { get; set; }
 
-
-        [Column(Order = 4)]
+        [Column("salary", Order = 4)]
         public int Salary { get; set; }
 
         public virtual ICollection<StudentCourse> StudentCourse { get; set; }

@@ -1,4 +1,5 @@
-﻿using ASP.NET_Core_EF_CodeFirst.Models;
+﻿using BLL.Models;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NET_Core_EF_CodeFirst.Controllers
@@ -7,31 +8,34 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
     [ApiController]
     public class InstituteController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IInstituteService instituteService;
+        public InstituteController(IInstituteService instituteService)
         {
-            return new string[] { "value1", "value2" };
+            this.instituteService = instituteService;
+        }
+
+        [HttpGet]
+        public IEnumerable<InstituteModel> Get()
+        {
+            return instituteService.Get();
         }
 
         [HttpGet("{id}")]
-        public InstituteModel Get(int id)
+        public InstituteModel Get([FromRoute] int id)
         {
-            return null;// InstituteService.GetById(id);
+            return instituteService.GetInstituteById(id);
         }
 
         [HttpPost]
-        public void Add([FromBody] string value)
+        public void Add([FromBody] InstituteModel institute)
         {
+            instituteService.AddInstitute(institute);
         }
 
         [HttpPut("{id}")]
-        public void Update(int id, [FromBody] string value)
+        public void Update(int id, [FromBody] InstituteModel institute)
         {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            instituteService.Update(id, institute);
         }
     }
 }

@@ -6,25 +6,26 @@ namespace DAL.Entities
     public class Teacher
     {
         [Key]
-        public int TeachersId { get; set; }
+        [Column("teacher_id", Order = 0)]
+        public int TeacherId { get; set; }
 
         [Required]
-        [Column("first_name", Order = 0)]
+        [Column("first_name", Order = 1)]
         public string FirstName { get; set; }
 
-        [Column("last_name", Order = 1)]
+        [Column("last_name", Order = 2)]
         public string LastName { get; set; }
 
-        [Column("birthday", Order = 2)]
+        [Column("birthday", Order = 3)]
         public DateTime? Birthday { get; set; }
 
-        [Column("address", Order = 3)]
+        [Column("address", Order = 4)]
         public string? Address { get; set; }
 
-        [Column("phone", Order = 4)]
+        [Column("phone", Order = 5)]
         public string? Phone { get; set; }
 
-        [Column("email", Order = 5)]
+        [Column("email", Order = 6)]
         public string Email { get; set; }
 
     }

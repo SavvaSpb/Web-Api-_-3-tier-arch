@@ -1,6 +1,7 @@
-﻿using DAL.Entities;
-using DAL.MyContext;
+﻿using DAL.Context;
+using DAL.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,110 +14,123 @@ namespace DAL.Repositories
     }
     public class StudentRepository : Repository<Student>, IStudentRepository
     {
+        private readonly MyContext context;
+
+        public StudentRepository(MyContext context)
+        {
+            this.context = context;
+        }
+
         public override int Add(Student student)
         {
-            using (var context = new Context())
+
+            try
             {
-                try
-                {
-                    context.Students.Add(student);
-                    context.SaveChanges();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-
-                    Console.WriteLine();
-                }
-
-                return student.StudentsId;
+                context.Student.Add(student);
+                context.SaveChanges();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return student.StudentId;
+
         }
 
         public override void Update(int id, Student student)
         {
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    context.Students.Find(id, student);
-                    context.Students.Update(student);
-                    context.SaveChanges();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
+                var entity = context.Student.Find(id);
+                if (entity == null)
+                    return;
+
+                entity.FirstName = student.FirstName;
+                entity.LastName = student.LastName;
+                entity.Birthday = student.Birthday;
+                entity.Address = student.Address;
+                entity.Phone = student.Phone;
+                entity.Email = student.Email;
+
+                context.Student.Update(entity);
+                context.SaveChanges();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
         }
 
         public override List<Student> Get()
         {
             List<Student> studentsGet = new List<Student>();
 
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    studentsGet = context.Students.ToList();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
-
-                return studentsGet;
+                studentsGet = context.Student
+                    .AsNoTracking()
+                    .ToList();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return studentsGet;
+
         }
 
         public override Student GetById(int id)
         {
             Student student = new Student();
 
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    student = context.Students.Find(id);
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
-
-                return student;
+                student = context.Student
+                    .AsNoTracking()
+                    .FirstOrDefault(x => x.StudentId == id);
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return student;
+
         }
     }
 }

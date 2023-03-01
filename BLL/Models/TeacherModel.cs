@@ -1,8 +1,11 @@
-﻿namespace ASP.NET_Core_EF_CodeFirst.Models
+﻿namespace BLL.Models
 {
     public class TeacherModel
     {
-        public int TeachersId { get; set; }
+        public int TeacherId { get; set; }
+
+        public int TotalSalary { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? Birthday { get; set; }

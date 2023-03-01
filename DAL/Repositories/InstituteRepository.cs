@@ -1,6 +1,7 @@
-﻿using DAL.Entities;
-using DAL.MyContext;
+﻿using DAL.Context;
+using DAL.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -13,55 +14,64 @@ namespace DAL.Repositories
     }
     public class InstituteRepository : Repository<Institute>, IInstituteRepository
     {
+        private readonly MyContext context;
+
+        public InstituteRepository(MyContext context)
+        {
+            this.context = context;
+        }
+
         public override int Add(Institute institute)
         {
-            using (var context = new Context())
+
+            try
             {
-                try
-                {
-                    context.Institute.Add(institute);
-                    context.SaveChanges();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-
-                    Console.WriteLine();
-                }
-
-                return institute.InstituteId;
+                context.Institute.Add(institute);
+                context.SaveChanges();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+
+                Console.WriteLine();
+            }
+
+            return institute.InstituteId;
+
         }
 
         public override void Update(int id, Institute institute)
         {
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    context.Institute.Find(id, institute);
-                    context.Institute.Update(institute);
-                    context.SaveChanges();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
+                var entity = context.Institute.Find(id);
+                if (entity == null)
+                    return;
+
+                entity.InstituteTypeName = institute.InstituteTypeName;
+
+                context.Institute.Update(entity);
+                context.SaveChanges();
+
+            }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
             }
         }
 
@@ -69,54 +79,54 @@ namespace DAL.Repositories
         {
             List<Institute> institutesGet = new List<Institute>();
 
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    institutesGet = context.Institute.ToList();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
-
-                return institutesGet;
+                institutesGet = context.Institute
+                    .AsNoTracking()
+                    .ToList();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return institutesGet;
+
         }
 
         public override Institute GetById(int id)
         {
             Institute institute = new Institute();
 
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    institute = context.Institute.Find(id);
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
-
-                return institute;
+                institute = context.Institute
+                    .AsNoTracking()
+                    .FirstOrDefault(x => x.InstituteId == id);
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return institute;
+
         }
     }
 }

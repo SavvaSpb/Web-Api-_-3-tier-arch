@@ -1,5 +1,6 @@
-﻿using DAL.Entities;
-using DAL.MyContext;
+﻿using DAL.Context;
+using DAL.Entities;
+using DAL.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,114 +12,165 @@ namespace DAL.Repositories
         public void Update(int id, Teacher teacher);
         public List<Teacher> Get();
         public Teacher GetById(int id);
+        public List<TeacherWithSalaryModel> GetWithSalary();
 
     }
     public class TeacherRepository : Repository<Teacher>, ITeacherRepository
     {
+        private readonly MyContext context;
+
+        public TeacherRepository(MyContext context)
+        {
+            this.context = context;
+        }
+
         public override int Add(Teacher teacher)
         {
-            using (var context = new Context())
+
+            try
             {
-                try
-                {
-                    context.Teachers.Add(teacher);
-                    context.SaveChanges();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-
-                    Console.WriteLine();
-                }
-
-                return teacher.TeachersId;
+                context.Teacher.Add(teacher);
+                context.SaveChanges();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+
+                Console.WriteLine();
+            }
+
+            return teacher.TeacherId;
+
         }
 
         public override void Update(int id, Teacher teacher)
         {
-            using (var context = new Context())
+
+            try
             {
-                try
-                {
-                    context.Teachers.Find(id, teacher);
-                    context.Teachers.Update(teacher);
-                    context.SaveChanges();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
+                var entity = context.Teacher.Find(id);
+                if (entity == null)
+                    return;
+
+                entity.FirstName = teacher.FirstName;
+                entity.LastName = teacher.LastName;
+                entity.Birthday = teacher.Birthday;
+                entity.Address = teacher.Address;
+                entity.Phone = teacher.Phone;
+                entity.Email = teacher.Email;
+
+                context.Teacher.Update(entity);
+                context.SaveChanges();
+
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
         }
 
         public override List<Teacher> Get()
         {
             List<Teacher> teachersGet = new List<Teacher>();
 
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    teachersGet = context.Teachers.ToList();
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
-
-                return teachersGet;
+                teachersGet = context.Teacher
+                    .AsNoTracking()
+                    .ToList();
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return teachersGet;
+
         }
 
         public override Teacher GetById(int id)
         {
             Teacher teacher = new Teacher();
 
-            using (var context = new Context())
+            try
             {
-                try
-                {
-                    teacher = context.Teachers.AsNoTracking().FirstOrDefault(x => x.TeachersId == id);
-                }
-                catch (SqlException sqlEx)
-                {
-                    Console.WriteLine(sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine();
-                }
-
-                return teacher;
+                teacher = context.Teacher
+                    .AsNoTracking()
+                    .FirstOrDefault(x => x.TeacherId == id);
             }
+            catch (SqlException sqlEx)
+            {
+                Console.WriteLine(sqlEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine();
+            }
+
+            return teacher;
+
         }
+
+        public List<TeacherWithSalaryModel> GetWithSalary()
+        {
+            //Expression<Func<Student, bool>> isTeenAgerExpr = s => s.age > 12 && s.age < 20;
+            //isTeenAgerExpr.Compile();
+
+            IQueryable<TeacherWithSalaryModel> query = (from t in context.Teacher
+                                                        join c in context.Course
+                                                        on t.TeacherId equals c.TeacherId
+                                                        select new
+                                                        {
+                                                            t,
+                                                            c
+                                                        } into tc
+                                                        group tc by tc.t.TeacherId into g
+                                                        orderby g.Key /* ascending */
+                                                        select new TeacherWithSalaryModel
+                                                        {
+                                                            TeacherId = g.Key,
+                                                            TotalSalary = g.Sum(x => x.c.Salary),
+                                                            FirstName = g.First().t.FirstName,
+                                                            LastName = g.Min(x => x.t.LastName),
+                                                            Birthday = g.Min(x => x.t.Birthday),
+                                                            Address = g.Min(x => x.t.Address),
+                                                            Phone = g.Min(x => x.t.Phone),
+                                                            Email = g.Min(x => x.t.Email)
+
+                                                        } );
+
+            string a = query.ToQueryString();
+            var aa = query.ToList();
+            return query.ToList();
+        }
+
     }
 }

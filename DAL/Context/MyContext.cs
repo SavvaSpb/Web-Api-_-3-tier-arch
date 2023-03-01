@@ -1,26 +1,21 @@
 ﻿using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DAL.MyContext
+namespace DAL.Context
 {
-    public class Context : DbContext
+    public class MyContext : DbContext
     {
-        public Context()
+        public MyContext(DbContextOptions<MyContext> options) : base(options)
         {
             //Database.EnsureDeleted();
             //Database.EnsureCreated();
             //Database.Migrate();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = TestDb5; Trusted_Connection = True");
-        }
-
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<Student> Student { get; set; }
         public DbSet<Institute> Institute { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<StudentCourse> StudentsCourses { get; set; }
+        public DbSet<Course> Course { get; set; }
+        public DbSet<StudentCourse> StudentCourse { get; set; }
     }
 }

@@ -6,20 +6,22 @@ namespace DAL.Entities
     public class StudentCourse
     {
         [Key]
-        public int StudentsCoursesId { get; set; }
+        [Column("student_course_id", Order = 0)]
+        public int StudentCourseId { get; set; }
 
-        [Column("students_id", Order = 1)]
+        [Column("student_id", Order = 1)]
         [ForeignKey(nameof(Student))]
-        public int StudentsId { get; set; }
+        public int StudentId { get; set; }
 
-        [Column("courses_id", Order = 2)]
+        [Column("course_id", Order = 2)]
         [ForeignKey(nameof(Course))]
-        public int CoursesId { get; set; }
+        public int CourseId { get; set; }
 
         public virtual Student Student { get; set; }
         public virtual Course Course { get; set; }
 
-        public int StudentsGrade { get; set; }
+        [Column("student_grade", Order = 3)]
+        public int StudentGrade { get; set; }
 
     }
 }

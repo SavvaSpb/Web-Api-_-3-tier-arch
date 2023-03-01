@@ -1,4 +1,4 @@
-﻿namespace ASP.NET_Core_EF_CodeFirst.Models
+﻿namespace BLL.Models
 {
     public class InstituteModel
     {

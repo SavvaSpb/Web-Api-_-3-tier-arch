@@ -1,4 +1,6 @@
-﻿using ASP.NET_Core_EF_CodeFirst.Models;
+﻿using ASP.NET_Core_EF_CodeFirst.Extensions.MappingExtensions;
+using ASP.NET_Core_EF_CodeFirst.Models;
+using BLL.Models;
 using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,32 +16,29 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
             this.courseService = courseService;
         }
 
-
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<CourseModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            return courseService.Get();
         }
 
         [HttpGet("{id}")]
-        public CourseModel Get(int id)
+        public CourseModel Get([FromRoute] int id)
         {
             return courseService.GetCourseById(id);
         }
 
         [HttpPost]
-        public void Add([FromBody] string value)
+        public void Add([FromBody] CourseModel course)
         {
+           courseService.AddCourse(course);
         }
 
         [HttpPut("{id}")]
-        public void Update(int id, [FromBody] string value)
+        public void Update(int id, [FromBody] CourseUpdateModel courseUpdateModel)
         {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var courseModel = courseUpdateModel.MapToBusinessModel();
+            courseService.Update(id, courseModel);
         }
     }
 }

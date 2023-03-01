@@ -1,5 +1,5 @@
-﻿using ASP.NET_Core_EF_CodeFirst.Models;
-using BLL.Services.Implementations;
+﻿using BLL.Models;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASP.NET_Core_EF_CodeFirst.Controllers
@@ -8,31 +8,34 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IStudentService studentService;
+        public StudentController(IStudentService studentService)
         {
-            return new string[] { "value1", "value2" };
+            this.studentService = studentService;
+        }
+
+        [HttpGet]
+        public IEnumerable<StudentModel> Get()
+        {
+            return studentService.Get();
         }
 
         [HttpGet("{id}")]
-        public StudentModel Get(int id)
+        public StudentModel Get([FromRoute] int id)
         {
-            return StudentService.GetById(id);
+            return studentService.GetStudentById(id);
         }
 
         [HttpPost]
-        public void Add([FromBody] string value)
+        public void Add([FromBody] StudentModel student)
         {
+            studentService.AddStudent(student);
         }
 
         [HttpPut("{id}")]
-        public void Update(int id, [FromBody] string value)
+        public void Update(int id, [FromBody] StudentModel student)
         {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            studentService.Update(id, student);
         }
     }
 }
