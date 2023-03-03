@@ -15,22 +15,6 @@ namespace ASP.NET_Core_EF_CodeFirst
 
             builder.Services.AddAuthorization();
 
-            //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidIssuer = AuthOptions.ISSUER,
-            //            ValidateAudience = true,
-            //            ValidAudience = AuthOptions.AUDIENCE,
-            //            ValidateLifetime = true,
-            //            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            //            ValidateIssuerSigningKey = true,
-            //        };
-            //    });
-            
-
             // Add our services to the container.
             builder.Services.AddLocalServices();
 

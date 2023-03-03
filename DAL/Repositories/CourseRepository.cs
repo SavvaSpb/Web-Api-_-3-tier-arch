@@ -108,7 +108,6 @@ namespace DAL.Repositories
         public override Course? GetById(int id)
         {
             Course? course = new Course();
-
             try
             {
                 course = context.Course

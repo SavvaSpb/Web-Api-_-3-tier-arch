@@ -1,4 +1,5 @@
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\bin\Debug\net6.0\DAL.deps.json
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\bin\Debug\net6.0\DAL.runtimeconfig.json
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\bin\Debug\net6.0\DAL.dll
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\bin\Debug\net6.0\DAL.pdb
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\DAL.csproj.AssemblyReference.cache
@@ -9,6 +10,5 @@ C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\DAL.dll
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\refint\DAL.dll
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\DAL.pdb
-C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\ref\DAL.dll
-C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\bin\Debug\net6.0\DAL.runtimeconfig.json
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\DAL.genruntimeconfig.cache
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\DAL\obj\Debug\net6.0\ref\DAL.dll
