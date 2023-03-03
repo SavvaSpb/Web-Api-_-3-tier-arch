@@ -141,9 +141,6 @@ namespace DAL.Repositories
 
         public List<TeacherWithSalaryModel> GetWithSalary()
         {
-            //Expression<Func<Student, bool>> isTeenAgerExpr = s => s.age > 12 && s.age < 20;
-            //isTeenAgerExpr.Compile();
-
             IQueryable<TeacherWithSalaryModel> query = (from t in context.Teacher
                                                         join c in context.Course
                                                         on t.TeacherId equals c.TeacherId
@@ -158,7 +155,7 @@ namespace DAL.Repositories
                                                         {
                                                             TeacherId = g.Key,
                                                             TotalSalary = g.Sum(x => x.c.Salary),
-                                                            FirstName = g.First().t.FirstName,
+                                                            FirstName = g.Min(x => x.t.FirstName),
                                                             LastName = g.Min(x => x.t.LastName),
                                                             Birthday = g.Min(x => x.t.Birthday),
                                                             Address = g.Min(x => x.t.Address),
@@ -167,8 +164,8 @@ namespace DAL.Repositories
 
                                                         } );
 
-            string a = query.ToQueryString();
-            var aa = query.ToList();
+            string queryString = query.ToQueryString();
+            Console.WriteLine(queryString);
             return query.ToList();
         }
 

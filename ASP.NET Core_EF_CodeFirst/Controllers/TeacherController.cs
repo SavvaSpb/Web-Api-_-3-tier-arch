@@ -38,7 +38,6 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
         public void Update(int id, [FromBody] TeacherModel teacher)
         {
             teacherService.Update(id, teacher);
-            
         }
 
         [HttpGet]

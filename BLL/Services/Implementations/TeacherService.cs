@@ -41,7 +41,7 @@ namespace BLL.Services.Implementations
 
             return new TeacherModel
             {
-                TeacherId = teacherEntity.TeacherId,
+                Id = teacherEntity.TeacherId,
 
                 FirstName = teacherEntity.FirstName,
 
@@ -113,6 +113,7 @@ namespace BLL.Services.Implementations
             foreach (var item in teacherEntities)
             {
                 teachers.Add(new TeacherModel {
+                    Id = item.TeacherId,
                     TotalSalary = item.TotalSalary,
                     FirstName = item.FirstName,
                     LastName = item.LastName,

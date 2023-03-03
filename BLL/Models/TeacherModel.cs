@@ -2,7 +2,7 @@
 {
     public class TeacherModel
     {
-        public int TeacherId { get; set; }
+        public int Id { get; set; }
 
         public int TotalSalary { get; set; }
 

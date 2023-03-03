@@ -12,7 +12,7 @@ namespace ASP.NET_Core_EF_CodeFirst.Extensions.MappingExtensions
 
             TeacherWithSalaryModel dest = new()
             {
-                TeacherId = mappingObject.TeacherId,
+                Id = mappingObject.Id,
                 TotalSalary = mappingObject.TotalSalary,
                 FirstName = mappingObject.FirstName,
                 LastName = mappingObject.LastName,
