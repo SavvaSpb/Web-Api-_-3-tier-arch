@@ -57,7 +57,6 @@ namespace DAL.Repositories
 
                 entity.InstituteTypeName = institute.InstituteTypeName;
 
-                context.Institute.Update(entity);
                 context.SaveChanges();
 
             }

@@ -20,10 +20,10 @@ namespace DAL.Entities
         public DateTime? Birthday { get; set; }
 
         [Column("address", Order = 4)]
-        public string? Address { get; set; }
+        public string Address { get; set; }
 
         [Column("phone", Order = 5)]
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
 
         [Column("email", Order = 6)]
         public string Email { get; set; }

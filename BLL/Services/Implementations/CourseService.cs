@@ -33,7 +33,7 @@ namespace BLL.Services.Implementations
             Course? courseEntity = repo.GetById(id);
             if (courseEntity == null)
             {
-                throw new CustomException("Course doesn't exist");
+                throw new ValidationException("Course doesn't exist");
             }
 
             return new CourseModel
@@ -50,7 +50,7 @@ namespace BLL.Services.Implementations
 
             if (!courseEntities.Any())
             {
-                throw new CustomException("We have no any courses");
+                throw new ValidationException("We have no any courses");
             }
 
             var courses = new List<CourseModel>();
@@ -71,7 +71,6 @@ namespace BLL.Services.Implementations
                 InstituteId = course.InstituteId,
                 TeacherId = course.TeacherId,
                 Salary = course.Salary
-
             };
             repo.Update(id, courseEntity);
         }

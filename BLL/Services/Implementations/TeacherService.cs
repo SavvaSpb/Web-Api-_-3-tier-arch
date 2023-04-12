@@ -36,7 +36,7 @@ namespace BLL.Services.Implementations
             var teacherEntity = repo.GetById(id);
             if (teacherEntity == null)
             {
-                throw new CustomException("Teacher doesn't exist");
+                throw new ValidationException("Teacher doesn't exist");
             }
 
             return new TeacherModel
@@ -63,7 +63,7 @@ namespace BLL.Services.Implementations
 
             if (!teacherEntities.Any())
             {
-                throw new CustomException("We have no any teacher");
+                throw new ValidationException("We have no any teacher");
             }
 
             var teachers = new List<TeacherModel>();
@@ -105,7 +105,7 @@ namespace BLL.Services.Implementations
 
             if (!teacherEntities.Any())
             {
-                throw new CustomException("We have no any teachers");
+                throw new ValidationException("We have no any teachers");
             }
 
             var teachers = new List<TeacherModel>();

@@ -59,7 +59,10 @@ namespace DAL.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", t =>
+                        {
+                            t.HasCheckConstraint("Salary", "Salary > 50 ");
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Institute", b =>
@@ -187,7 +190,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("email")
                         .HasColumnOrder(6);
 
@@ -210,7 +213,47 @@ namespace DAL.Migrations
 
                     b.HasKey("TeacherId");
 
-                    b.ToTable("Teacher");
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Teacher", t =>
+                        {
+                            t.HasCheckConstraint("Phone", "Phone like '+374%'");
+                        });
+                });
+
+            modelBuilder.Entity("DAL.Entities.UserAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_account_id")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("email")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("password")
+                        .HasColumnOrder(2);
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("phone")
+                        .HasColumnOrder(3);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("UserAccount");
                 });
 
             modelBuilder.Entity("DAL.Entities.Course", b =>
@@ -222,7 +265,7 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.Teacher", "Teacher")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -259,6 +302,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Student", b =>
                 {
                     b.Navigation("StudentCourse");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Teacher", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

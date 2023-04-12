@@ -54,14 +54,11 @@ namespace DAL.Repositories
                 if (entity == null)
                     return;
 
-               entity.CourseId = course.CourseId;
                entity.CourseTypeName = course.CourseTypeName;
-               entity.InstituteId = course.InstituteId;
                entity.TeacherId= course.TeacherId;
                entity.Salary = course.Salary;
 
-                context.Course.Update(entity);
-                context.SaveChanges();
+               context.SaveChanges();
             }
             catch (SqlException sqlEx)
             {

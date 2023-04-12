@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace DAL.Entities
 {
@@ -19,14 +20,19 @@ namespace DAL.Entities
         [Column("birthday", Order = 3)]
         public DateTime? Birthday { get; set; }
 
+        //todo: make this NOT NULL (required)
+
         [Column("address", Order = 4)]
-        public string? Address { get; set; }
+        [DefaultValue("Yerevan")]
+        public string Address { get; set; }
 
         [Column("phone", Order = 5)]
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
 
         [Column("email", Order = 6)]
         public string Email { get; set; }
+
+        public virtual ICollection<Course> Courses { get; set; } 
 
     }
 }

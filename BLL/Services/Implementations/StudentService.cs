@@ -35,7 +35,7 @@ namespace BLL.Services.Implementations
             var studentEntity = repo.GetById(id);
             if (studentEntity == null)
             {
-                throw new CustomException("Student doesn't exist");
+                throw new ValidationException("Student doesn't exist");
             }
 
             return new StudentModel
@@ -63,7 +63,7 @@ namespace BLL.Services.Implementations
 
             if (!studentEntities.Any())
             {
-                throw new CustomException("We have no any student");
+                throw new ValidationException("We have no any student");
             }
 
             var students = new List<StudentModel>();

@@ -20,12 +20,14 @@ namespace BLL.Extensions
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IInstituteService, InstituteService>();
+            services.AddScoped<IUserAccountService, UserAccountService>();
 
             // DAL 
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IInstituteRepository, InstituteRepository>();
+            services.AddScoped<IUserAccountRepository, UserAccountRepository>();
 
         }
     }

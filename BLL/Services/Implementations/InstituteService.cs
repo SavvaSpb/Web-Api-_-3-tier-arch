@@ -30,7 +30,7 @@ namespace BLL.Services.Implementations
             var instituteEntity = repo.GetById(id);
             if (instituteEntity == null)
             {
-                throw new CustomException("Institute doesn't exist");
+                throw new ValidationException("Institute doesn't exist");
             }
 
             return new InstituteModel
@@ -46,7 +46,7 @@ namespace BLL.Services.Implementations
 
             if (!instituteEntities.Any())
             {
-                throw new CustomException("We have no any institute");
+                throw new ValidationException("We have no any institute");
             }
 
             var institutions = new List<InstituteModel>();

@@ -66,7 +66,6 @@ namespace DAL.Repositories
                 entity.Phone = teacher.Phone;
                 entity.Email = teacher.Email;
 
-                context.Teacher.Update(entity);
                 context.SaveChanges();
 
             }
@@ -141,6 +140,7 @@ namespace DAL.Repositories
 
         public List<TeacherWithSalaryModel> GetWithSalary()
         {
+
             IQueryable<TeacherWithSalaryModel> query = (from t in context.Teacher
                                                         join c in context.Course
                                                         on t.TeacherId equals c.TeacherId
@@ -150,7 +150,7 @@ namespace DAL.Repositories
                                                             c
                                                         } into tc
                                                         group tc by tc.t.TeacherId into g
-                                                        orderby g.Key /* ascending */
+                                                        orderby g.Key 
                                                         select new TeacherWithSalaryModel
                                                         {
                                                             TeacherId = g.Key,
@@ -162,10 +162,16 @@ namespace DAL.Repositories
                                                             Phone = g.Min(x => x.t.Phone),
                                                             Email = g.Min(x => x.t.Email)
 
-                                                        } );
+                                                            //TeacherId = g.Key,
+                                                            //TotalSalary = g.Sum(x => x.c.Salary),
+                                                            //FirstName = g.First().t.FirstName,
+                                                            //LastName = g.First().t.LastName,
+                                                            //Birthday = g.First().t.Birthday,
+                                                            //Address = g.First().t.Address,
+                                                            //Phone = g.First().t.Phone,
+                                                            //Email = g.First().t.Email
+                                                        });
 
-            string queryString = query.ToQueryString();
-            Console.WriteLine(queryString);
             return query.ToList();
         }
 

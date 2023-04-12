@@ -61,7 +61,6 @@ namespace DAL.Repositories
                 entity.Phone = student.Phone;
                 entity.Email = student.Email;
 
-                context.Student.Update(entity);
                 context.SaveChanges();
             }
             catch (SqlException sqlEx)
