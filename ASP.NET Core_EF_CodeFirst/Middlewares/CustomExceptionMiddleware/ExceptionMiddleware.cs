@@ -27,15 +27,23 @@ namespace ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext httpContext, ValidationException ex)
+        private static async Task HandleExceptionAsync(HttpContext httpContext, ValidationException ex)
         {
-            
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            await httpContext.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = httpContext.Response.StatusCode,
+                Message = ex.Message
+            }.ToString());
         }
 
-        private async Task HandleExceptionAsync(HttpContext context)
+        private static async Task HandleExceptionAsync(HttpContext context)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
             await context.Response.WriteAsync(new ErrorDetails()
             {
                 StatusCode = context.Response.StatusCode,

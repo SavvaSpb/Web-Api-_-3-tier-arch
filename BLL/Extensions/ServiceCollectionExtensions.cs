@@ -14,7 +14,6 @@ namespace BLL.Extensions
         public static void AddLocalServices(this IServiceCollection services)
         {
             services.RegisterAsOptions<JwtModel>("Jwt");
-            //services.AddOptions<JwtModel>().Configure<IConfiguration>((settings, config) => { config.GetSection("Jwt").Bind(settings); });
             
             // DB Context registration
             services.AddDbContext<MyContext>(
