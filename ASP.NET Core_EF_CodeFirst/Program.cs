@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ASP.NET_Core_EF_CodeFirst.Extensions.MappingExtensions;
 using ASP.NET_Core_EF_CodeFirst.Extensions;
+using BLL.AuthHelpers;
 
 namespace ASP.NET_Core_EF_CodeFirst
 {
@@ -29,9 +30,11 @@ namespace ASP.NET_Core_EF_CodeFirst
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey= false,
                     ValidAudience = builder.Configuration["Jwt:Audience"],
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(builder.Configuration["Jwt:Key"])
                 };
             });
 

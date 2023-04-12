@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bTVKAJbJf1zoMkZYzx3ItmqduuR+Daj/Rp2Rt7ZzxyLmvir9W3/twyvvUM10uzmceac8zD3Ai7b2ge6s4VpWbQ==",
+  "dgSpecHash": "CGunAApcWWKAd8OFG5QRstONgRfyYdbGayt6V9hyqq7SFo1GnyJanOS45S9yOZg6yS25H4MV4oE9uhBkKzPePA==",
   "success": true,
   "projectFilePath": "C:\\Users\\sgorbatiuk\\source\\repos\\ASP.NET Core_EF_CodeFirst\\ASP.NET Core_EF_CodeFirst\\ASP.NET Core_EF_CodeFirst.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.configuration.binder\\7.0.4\\microsoft.extensions.configuration.binder.7.0.4.nupkg.sha512",
     "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\7.0.0\\microsoft.extensions.configuration.fileextensions.7.0.0.nupkg.sha512",
     "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.configuration.json\\7.0.0\\microsoft.extensions.configuration.json.7.0.0.nupkg.sha512",
     "C:\\Users\\sgorbatiuk\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",

@@ -14,47 +14,45 @@ namespace BLL.Services.Implementations
     {
         private readonly IUserAccountRepository repo;
 
+        private readonly JwtModel jwtModel;
+
         public UserAccountService(IUserAccountRepository repo, IOptions<JwtModel> jwtToken)
         {
             this.repo = repo;
+            this.jwtModel = jwtToken.Value;
         }
 
         public LoginResponseModel Login(UserAccountModel model)
         {
-            try
+
+            var userAccount = repo.GetByLoginParameters(model.Email, model.Password);
+
+            //if nt found user, code: 401        
+            if (userAccount is null)
             {
-                var userAccount = repo.GetByLoginParameters(model.Email, model.Password);
-
-                //if nt found user, code: 401        
-                if (userAccount is null)
-                {
-                    throw new ValidationException("User not found");
-                }
-
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, userAccount.Email) };
-
-                // create JWT-token
-                var jwt = new JwtSecurityToken(
-                        issuer: "MyAuthServer",
-                        audience: "MyAuthClient",
-                        claims: claims,
-                        expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(jwtModel.ExpirationTime)), // take from app settings
-                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(jwtModel.Key), SecurityAlgorithms.HmacSha256));
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-                // create response
-                var response = new LoginResponseModel
-                {
-                    AccessToken = encodedJwt,
-                    Email = model.Email
-                };
-
-                return response;
+                throw new ValidationException("User not found");
             }
-            catch(ValidationException ex)
+
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, userAccount.Email) };
+
+            // create JWT-token
+            var jwt = new JwtSecurityToken(
+                    issuer: jwtModel.Issuer,
+                    audience: jwtModel.Audience,
+                    claims: claims,
+                    expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(jwtModel.ExpirationTime)), // take from app settings
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(jwtModel.Key), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            // create response
+            var response = new LoginResponseModel
             {
-                return new errorreponse { Message = ex.Message };
-            }
+                AccessToken = encodedJwt,
+                Email = model.Email
+            };
+
+            return response;
+
         }
 
         public List<UserAccountModel> Get()

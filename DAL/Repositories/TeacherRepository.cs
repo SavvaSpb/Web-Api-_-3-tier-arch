@@ -27,24 +27,9 @@ namespace DAL.Repositories
         public override int Add(Teacher teacher)
         {
 
-            try
-            {
                 context.Teacher.Add(teacher);
                 context.SaveChanges();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
 
-                Console.WriteLine();
-            }
 
             return teacher.TeacherId;
 
@@ -53,8 +38,6 @@ namespace DAL.Repositories
         public override void Update(int id, Teacher teacher)
         {
 
-            try
-            {
                 var entity = context.Teacher.Find(id);
                 if (entity == null)
                     return;
@@ -68,45 +51,16 @@ namespace DAL.Repositories
 
                 context.SaveChanges();
 
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
-
         }
 
         public override List<Teacher> Get()
         {
             List<Teacher> teachersGet = new List<Teacher>();
 
-            try
-            {
                 teachersGet = context.Teacher
                     .AsNoTracking()
                     .ToList();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
-
+            
             return teachersGet;
 
         }
@@ -115,24 +69,9 @@ namespace DAL.Repositories
         {
             Teacher teacher = new Teacher();
 
-            try
-            {
                 teacher = context.Teacher
                     .AsNoTracking()
                     .FirstOrDefault(x => x.TeacherId == id);
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
 
             return teacher;
 

@@ -25,31 +25,15 @@ namespace DAL.Repositories
         public override int Add(Course course)
         {
 
-            try
-            {
                 context.Course.Add(course);
                 context.SaveChanges();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
 
             return course.CourseId;
         }
 
         public override void Update(int id, Course course)
         {
-            try
-            {
+            
                 var entity = context.Course.Find(id);
                 if (entity == null)
                     return;
@@ -59,44 +43,15 @@ namespace DAL.Repositories
                entity.Salary = course.Salary;
 
                context.SaveChanges();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
         }
 
         public override List<Course> Get()
         {
             List<Course> coursesGet = new List<Course>();
 
-            try
-            {
                 coursesGet = context.Course
                     .AsNoTracking()
                     .ToList();
-
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
 
             return coursesGet;
 
@@ -105,26 +60,13 @@ namespace DAL.Repositories
         public override Course? GetById(int id)
         {
             Course? course = new Course();
-            try
-            {
+            
                 course = context.Course
                     .Include(c => c.Institute)
                     .Include(c => c.Teacher)
                     .AsNoTracking()
                     .FirstOrDefault(x => x.CourseId == id);
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
+            
 
             return course;
 

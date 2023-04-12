@@ -23,24 +23,8 @@ namespace DAL.Repositories
         }
         public override int Add(UserAccount userAccount)
         {
-
-            try
-            {
-                context.UserAccount.Add(userAccount);
-                context.SaveChanges();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
+            context.UserAccount.Add(userAccount);
+            context.SaveChanges();
 
             return userAccount.Id;
 
@@ -50,24 +34,9 @@ namespace DAL.Repositories
         {
             List<UserAccount> userAccountGet = new List<UserAccount>();
 
-            try
-            {
-                userAccountGet = context.UserAccount
-                    .AsNoTracking()
-                    .ToList();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
+            userAccountGet = context.UserAccount
+                .AsNoTracking()
+                .ToList();
 
             return userAccountGet;
 

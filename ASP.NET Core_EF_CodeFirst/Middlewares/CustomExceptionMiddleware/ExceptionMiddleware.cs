@@ -1,4 +1,5 @@
 ﻿using ASP.NET_Core_EF_CodeFirst.Models;
+using BLL.Models.Exceptions;
 using System.Net;
 
 namespace ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware
@@ -16,11 +17,21 @@ namespace ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware
             {
                 await _next(httpContext);
             }
+            catch(ValidationException ex)
+            {
+                await HandleExceptionAsync(httpContext, ex);
+            }
             catch 
             {
                 await HandleExceptionAsync(httpContext);
             }
         }
+
+        private Task HandleExceptionAsync(HttpContext httpContext, ValidationException ex)
+        {
+            
+        }
+
         private async Task HandleExceptionAsync(HttpContext context)
         {
             context.Response.ContentType = "application/json";
@@ -32,6 +43,5 @@ namespace ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware
             }.ToString());
         }
     }
-
 }
 

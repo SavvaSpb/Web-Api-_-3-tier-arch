@@ -24,23 +24,8 @@ namespace DAL.Repositories
         public override int Add(Student student)
         {
 
-            try
-            {
                 context.Student.Add(student);
                 context.SaveChanges();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
 
             return student.StudentId;
 
@@ -48,8 +33,7 @@ namespace DAL.Repositories
 
         public override void Update(int id, Student student)
         {
-            try
-            {
+         
                 var entity = context.Student.Find(id);
                 if (entity == null)
                     return;
@@ -62,19 +46,7 @@ namespace DAL.Repositories
                 entity.Email = student.Email;
 
                 context.SaveChanges();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
+            
 
         }
 
@@ -82,24 +54,10 @@ namespace DAL.Repositories
         {
             List<Student> studentsGet = new List<Student>();
 
-            try
-            {
                 studentsGet = context.Student
                     .AsNoTracking()
                     .ToList();
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
+            
 
             return studentsGet;
 
@@ -109,24 +67,9 @@ namespace DAL.Repositories
         {
             Student student = new Student();
 
-            try
-            {
                 student = context.Student
                     .AsNoTracking()
                     .FirstOrDefault(x => x.StudentId == id);
-            }
-            catch (SqlException sqlEx)
-            {
-                Console.WriteLine(sqlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine();
-            }
 
             return student;
 

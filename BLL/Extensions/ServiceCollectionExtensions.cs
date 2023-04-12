@@ -1,8 +1,10 @@
-﻿using BLL.Services;
+﻿using BLL.Models;
+using BLL.Services;
 using BLL.Services.Implementations;
 using DAL.Context;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BLL.Extensions
@@ -11,6 +13,9 @@ namespace BLL.Extensions
     {
         public static void AddLocalServices(this IServiceCollection services)
         {
+            services.RegisterAsOptions<JwtModel>("Jwt");
+            //services.AddOptions<JwtModel>().Configure<IConfiguration>((settings, config) => { config.GetSection("Jwt").Bind(settings); });
+            
             // DB Context registration
             services.AddDbContext<MyContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:MyConnection"));
@@ -29,6 +34,18 @@ namespace BLL.Extensions
             services.AddScoped<IInstituteRepository, InstituteRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
 
+
+
+        }
+
+        private static void RegisterAsOptions<T>(this IServiceCollection services, string sectionName) where T : class
+        {
+            if (sectionName == null)
+            {
+                return;
+            }
+
+            services.AddOptions<T>().Configure<IConfiguration>((settings, config) => { config.GetSection(sectionName).Bind(settings); });
         }
     }
 }
