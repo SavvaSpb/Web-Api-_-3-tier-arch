@@ -13,9 +13,8 @@ namespace ASP.NET_Core_EF_CodeFirst.Extensions.MappingExtensions
             return new UserAccountModel
             {
                 Email = mappingObject.Email,
-                Password= mappingObject.Password
+                Password = mappingObject.Password
             };
         }
     }
-
 }

@@ -8,7 +8,7 @@ namespace DAL.Entities
     {
         [Key]
         [Column("user_account_id", Order = 0)]
-        public int Id { get; set; }
+        public int UserAccountId { get; set; }
 
         [Required]
         [Column("email", Order = 1)]
@@ -19,6 +19,5 @@ namespace DAL.Entities
 
         [Column("phone", Order = 3)]
         public string? Phone { get; set; }
-
     }
 }

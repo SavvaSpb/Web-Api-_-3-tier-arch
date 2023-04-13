@@ -1,15 +1,12 @@
 ﻿using DAL.Context;
 using DAL.Entities;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
 
 namespace DAL.Repositories
 {
     public interface IUserAccountRepository
     {
         public List<UserAccount> Get();
-
         public UserAccount GetByLoginParameters(string email, string password);
     }
 
@@ -26,8 +23,7 @@ namespace DAL.Repositories
             context.UserAccount.Add(userAccount);
             context.SaveChanges();
 
-            return userAccount.Id;
-
+            return userAccount.UserAccountId;
         }
 
         public override List<UserAccount> Get()
@@ -39,7 +35,6 @@ namespace DAL.Repositories
                 .ToList();
 
             return userAccountGet;
-
         }
 
         public UserAccount GetByLoginParameters(string email, string password)
@@ -47,14 +42,28 @@ namespace DAL.Repositories
             return context.UserAccount.FirstOrDefault(X => X.Email == email && X.Password == password);
         }
 
-        public override UserAccount? GetById(int id)
+        public override UserAccount GetById(int id)
         {
-            throw new NotImplementedException();
+            UserAccount userAccount = new UserAccount();
+
+            userAccount = context.UserAccount
+                .AsNoTracking()
+                .FirstOrDefault(x => x.UserAccountId == id);
+
+            return userAccount;
         }
 
         public override void Update(int id, UserAccount item)
         {
-            throw new NotImplementedException();
+            var entity = context.UserAccount.Find(id);
+            if (entity == null)
+                return;
+
+            entity.Email = item.Email;
+            entity.Password = item.Password;
+            entity.Phone = item.Phone;
+
+            context.SaveChanges();
         }
     }
 }

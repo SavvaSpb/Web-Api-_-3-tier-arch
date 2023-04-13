@@ -12,7 +12,7 @@ namespace DAL.Entities
         [Required]
         [Column("course_type_name", Order = 1)]
         public string CourseTypeName { get; set; }
-        
+
         [ForeignKey(nameof(Institute))]
         [Column("institute_id", Order = 2)]
         public int InstituteId { get; set; }

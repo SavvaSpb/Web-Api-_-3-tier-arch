@@ -97,6 +97,7 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("address")
                         .HasColumnOrder(4);
@@ -125,6 +126,7 @@ namespace DAL.Migrations
                         .HasColumnOrder(2);
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("phone")
                         .HasColumnOrder(5);
@@ -179,6 +181,7 @@ namespace DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeacherId"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("address")
                         .HasColumnOrder(4);
@@ -207,6 +210,7 @@ namespace DAL.Migrations
                         .HasColumnOrder(2);
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("phone")
                         .HasColumnOrder(5);
@@ -224,13 +228,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.UserAccount", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserAccountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("user_account_id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserAccountId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -248,7 +252,7 @@ namespace DAL.Migrations
                         .HasColumnName("phone")
                         .HasColumnOrder(3);
 
-                    b.HasKey("Id");
+                    b.HasKey("UserAccountId");
 
                     b.HasIndex("Email")
                         .IsUnique();

@@ -218,13 +218,13 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.UserAccount", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserAccountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("user_account_id")
                         .HasColumnOrder(0);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserAccountId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -242,7 +242,7 @@ namespace DAL.Migrations
                         .HasColumnName("phone")
                         .HasColumnOrder(3);
 
-                    b.HasKey("Id");
+                    b.HasKey("UserAccountId");
 
                     b.ToTable("UserAccount");
                 });

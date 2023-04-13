@@ -22,6 +22,5 @@ namespace DAL.Entities
 
         [Column("student_grade", Order = 3)]
         public int StudentGrade { get; set; }
-
     }
 }

@@ -29,6 +29,5 @@ namespace DAL.Entities
         public string Email { get; set; }
 
         public virtual ICollection<StudentCourse> StudentCourse { get; set; }
-
     }
 }

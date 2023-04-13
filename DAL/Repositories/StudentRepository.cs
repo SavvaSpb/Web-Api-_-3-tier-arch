@@ -1,6 +1,5 @@
 ﻿using DAL.Context;
 using DAL.Entities;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
@@ -23,17 +22,14 @@ namespace DAL.Repositories
 
         public override int Add(Student student)
         {
-
                 context.Student.Add(student);
                 context.SaveChanges();
 
             return student.StudentId;
-
         }
 
         public override void Update(int id, Student student)
         {
-         
                 var entity = context.Student.Find(id);
                 if (entity == null)
                     return;
@@ -46,8 +42,6 @@ namespace DAL.Repositories
                 entity.Email = student.Email;
 
                 context.SaveChanges();
-            
-
         }
 
         public override List<Student> Get()
@@ -57,10 +51,8 @@ namespace DAL.Repositories
                 studentsGet = context.Student
                     .AsNoTracking()
                     .ToList();
-            
 
             return studentsGet;
-
         }
 
         public override Student GetById(int id)
@@ -72,7 +64,6 @@ namespace DAL.Repositories
                     .FirstOrDefault(x => x.StudentId == id);
 
             return student;
-
         }
     }
 }

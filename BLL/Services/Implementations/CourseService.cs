@@ -7,11 +7,11 @@ namespace BLL.Services.Implementations
 {
     public class CourseService : ICourseService
     {
-        private readonly ICourseRepository repo;
+        private readonly ICourseRepository courseRepo;
 
         public CourseService(ICourseRepository repo)
         {
-            this.repo = repo;
+            this.courseRepo = repo;
         }
         public int AddCourse(CourseModel course)
         {
@@ -23,14 +23,14 @@ namespace BLL.Services.Implementations
                 Salary = course.Salary
             };
 
-            int courseId = repo.Add(courseEntity);
+            int courseId = courseRepo.Add(courseEntity);
 
             return courseId;
         }
 
         public CourseModel GetCourseById(int id)
         {
-            Course? courseEntity = repo.GetById(id);
+            Course? courseEntity = courseRepo.GetById(id);
             if (courseEntity == null)
             {
                 throw new ValidationException("Course doesn't exist");
@@ -46,7 +46,7 @@ namespace BLL.Services.Implementations
 
         public List<CourseModel> Get()
         {
-            List<Course> courseEntities = repo.Get();
+            List<Course> courseEntities = courseRepo.Get();
 
             if (!courseEntities.Any())
             {
@@ -72,8 +72,7 @@ namespace BLL.Services.Implementations
                 TeacherId = course.TeacherId,
                 Salary = course.Salary
             };
-            repo.Update(id, courseEntity);
+            courseRepo.Update(id, courseEntity);
         }
-
     }
 }

@@ -14,7 +14,7 @@ namespace BLL.Extensions
         public static void AddLocalServices(this IServiceCollection services)
         {
             services.RegisterAsOptions<JwtModel>("Jwt");
-            
+
             // DB Context registration
             services.AddDbContext<MyContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:MyConnection"));

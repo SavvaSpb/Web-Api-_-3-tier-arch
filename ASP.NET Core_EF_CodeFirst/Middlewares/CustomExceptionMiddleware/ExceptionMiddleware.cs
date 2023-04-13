@@ -17,11 +17,11 @@ namespace ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware
             {
                 await _next(httpContext);
             }
-            catch(ValidationException ex)
+            catch (ValidationException ex)
             {
                 await HandleExceptionAsync(httpContext, ex);
             }
-            catch 
+            catch
             {
                 await HandleExceptionAsync(httpContext);
             }

@@ -12,20 +12,18 @@ namespace BLL.Services.Implementations
 {
     public class UserAccountService : IUserAccountService
     {
-        private readonly IUserAccountRepository repo;
-
+        private readonly IUserAccountRepository userAccountRepo;
         private readonly JwtModel jwtModel;
 
         public UserAccountService(IUserAccountRepository repo, IOptions<JwtModel> jwtToken)
         {
-            this.repo = repo;
+            this.userAccountRepo = repo;
             this.jwtModel = jwtToken.Value;
         }
 
         public LoginResponseModel Login(UserAccountModel model)
         {
-
-            var userAccount = repo.GetByLoginParameters(model.Email, model.Password);
+            var userAccount = userAccountRepo.GetByLoginParameters(model.Email, model.Password);
 
             //if nt found user, code: 401        
             if (userAccount is null)
@@ -47,17 +45,16 @@ namespace BLL.Services.Implementations
             // create response
             var response = new LoginResponseModel
             {
-                AccessToken = encodedJwt,
+                AccessToken = $"Bearer {encodedJwt}",
                 Email = model.Email
             };
 
             return response;
-
         }
 
         public List<UserAccountModel> Get()
         {
-            List<UserAccount> userAccountEntities = repo.Get();
+            List<UserAccount> userAccountEntities = userAccountRepo.Get();
 
             if (!userAccountEntities.Any())
             {
@@ -77,11 +74,5 @@ namespace BLL.Services.Implementations
             }
             return userAccount;
         }
-
-        List<UserAccountModel> IUserAccountService.Get()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

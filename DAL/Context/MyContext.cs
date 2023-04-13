@@ -18,7 +18,7 @@ namespace DAL.Context
                 .IsUnique();
 
             builder.Entity<Teacher>()
-                .ToTable(u => u.HasCheckConstraint("Phone", "Phone like '+374%'" ));
+                .ToTable(u => u.HasCheckConstraint("Phone", "Phone like '+374%'"));
 
             builder.Entity<Teacher>()
                 .HasIndex(u => u.Email)

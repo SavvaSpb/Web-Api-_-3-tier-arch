@@ -20,8 +20,6 @@ namespace DAL.Entities
         [Column("birthday", Order = 3)]
         public DateTime? Birthday { get; set; }
 
-        //todo: make this NOT NULL (required)
-
         [Column("address", Order = 4)]
         [DefaultValue("Yerevan")]
         public string Address { get; set; }
@@ -32,7 +30,7 @@ namespace DAL.Entities
         [Column("email", Order = 6)]
         public string Email { get; set; }
 
-        public virtual ICollection<Course> Courses { get; set; } 
+        public virtual ICollection<Course> Courses { get; set; }
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using DAL.Context;
 using DAL.Entities;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
@@ -24,52 +23,47 @@ namespace DAL.Repositories
 
         public override int Add(Course course)
         {
-
-                context.Course.Add(course);
-                context.SaveChanges();
+            context.Course.Add(course);
+            context.SaveChanges();
 
             return course.CourseId;
         }
 
         public override void Update(int id, Course course)
         {
-            
-                var entity = context.Course.Find(id);
-                if (entity == null)
-                    return;
+            var entity = context.Course.Find(id);
+            if (entity == null)
+                return;
 
-               entity.CourseTypeName = course.CourseTypeName;
-               entity.TeacherId= course.TeacherId;
-               entity.Salary = course.Salary;
+            entity.CourseTypeName = course.CourseTypeName;
+            entity.TeacherId = course.TeacherId;
+            entity.Salary = course.Salary;
 
-               context.SaveChanges();
+            context.SaveChanges();
         }
 
         public override List<Course> Get()
         {
             List<Course> coursesGet = new List<Course>();
 
-                coursesGet = context.Course
-                    .AsNoTracking()
-                    .ToList();
+            coursesGet = context.Course
+                .AsNoTracking()
+                .ToList();
 
             return coursesGet;
-
         }
 
         public override Course? GetById(int id)
         {
             Course? course = new Course();
-            
-                course = context.Course
-                    .Include(c => c.Institute)
-                    .Include(c => c.Teacher)
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.CourseId == id);
-            
+
+            course = context.Course
+                .Include(c => c.Institute)
+                .Include(c => c.Teacher)
+                .AsNoTracking()
+                .FirstOrDefault(x => x.CourseId == id);
 
             return course;
-
         }
     }
 }

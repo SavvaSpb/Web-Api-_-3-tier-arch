@@ -1,9 +1,6 @@
-using ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware;
 using BLL.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using ASP.NET_Core_EF_CodeFirst.Extensions.MappingExtensions;
 using ASP.NET_Core_EF_CodeFirst.Extensions;
 using BLL.AuthHelpers;
 
@@ -31,7 +28,7 @@ namespace ASP.NET_Core_EF_CodeFirst
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = false,
-                    ValidateIssuerSigningKey= false,
+                    ValidateIssuerSigningKey = false,
                     ValidAudience = builder.Configuration["Jwt:Audience"],
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
                     IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(builder.Configuration["Jwt:Key"])
