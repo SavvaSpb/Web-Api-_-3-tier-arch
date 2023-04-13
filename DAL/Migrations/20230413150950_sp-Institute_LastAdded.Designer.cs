@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20230413121201_sp-Institute_LastAdded")]
+    [Migration("20230413150950_sp-Institute_LastAdded")]
     partial class spInstitute_LastAdded
     {
         /// <inheritdoc />
@@ -83,6 +83,11 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("institute_type_name")
                         .HasColumnOrder(1);
+
+                    b.Property<int>("IsLastAdded")
+                        .HasColumnType("int")
+                        .HasColumnName("IsLastAdded")
+                        .HasColumnOrder(2);
 
                     b.HasKey("InstituteId");
 

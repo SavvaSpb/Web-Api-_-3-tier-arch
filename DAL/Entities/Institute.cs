@@ -12,5 +12,8 @@ namespace DAL.Entities
         [Required]
         [Column("institute_type_name", Order = 1)]
         public string InstituteTypeName { get; set; }
+
+        [Column("IsLastAdded", Order = 2)]
+        public int IsLastAdded { get; set; }
     }
 }

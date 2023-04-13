@@ -22,8 +22,7 @@ namespace DAL.Repositories
 
         public override int Add(Institute institute)
         {
-
-            context.Institute.Add(institute);
+            context.Database.ExecuteSqlRaw("Institute_LastAdded @p0", parameters: new[] { institute.InstituteTypeName });
             context.SaveChanges();
 
             return institute.InstituteId;
@@ -31,7 +30,6 @@ namespace DAL.Repositories
 
         public override void Update(int id, Institute institute)
         {
-
             var entity = context.Institute.Find(id);
             if (entity == null)
                 return;

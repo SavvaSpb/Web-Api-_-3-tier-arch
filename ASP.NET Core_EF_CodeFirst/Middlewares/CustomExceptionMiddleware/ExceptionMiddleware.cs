@@ -11,6 +11,7 @@ namespace ASP.NET_Core_EF_CodeFirst.Middlewares.CustomExceptionMiddleware
         {
             _next = next;
         }
+
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
