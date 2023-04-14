@@ -32,9 +32,6 @@ namespace BLL.Extensions
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<IInstituteRepository, InstituteRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
-
-
-
         }
 
         private static void RegisterAsOptions<T>(this IServiceCollection services, string sectionName) where T : class

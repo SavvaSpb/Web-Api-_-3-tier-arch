@@ -24,10 +24,8 @@ namespace DAL.Migrations
                            VALUES
                            (@institute_type_name, 1)
 
-
                            declare @institute_id INT
                            set @institute_id = scope_identity()
-
 
                            UPDATE institute SET IsLastAdded = 0 WHERE institute_id != @institute_id
                        END TRY
@@ -44,7 +42,7 @@ namespace DAL.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.Sql("DROP PROCEDURE [Institute_LastAdded]");
         }
     }
 }

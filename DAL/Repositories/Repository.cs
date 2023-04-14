@@ -1,5 +1,13 @@
 ﻿namespace DAL.Repositories
 {
+    public interface IRepository<T>
+    {
+        public T? GetById(int id);
+        public List<T?> Get();
+        public int Add(T item);
+        public void Update(int id, T item);
+    }
+
     public abstract class Repository<T>
     {
         public abstract T? GetById(int id);

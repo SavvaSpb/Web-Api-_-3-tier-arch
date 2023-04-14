@@ -4,13 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public interface IInstituteRepository
-    {
-        public int Add(Institute institute);
-        public void Update(int id, Institute institute);
-        public List<Institute> Get();
-        public Institute GetById(int id);
-    }
+    public interface IInstituteRepository : IRepository<Institute>
+    { }
+    
     public class InstituteRepository : Repository<Institute>, IInstituteRepository
     {
         private readonly MyContext context;

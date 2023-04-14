@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public interface ITeacherRepository
+    public interface ITeacherRepository : IRepository<Teacher>
     {
-        public int Add(Teacher teacher);
-        public void Update(int id, Teacher teacher);
-        public List<Teacher> Get();
-        public Teacher GetById(int id);
         public List<TeacherWithSalaryModel> GetWithSalary();
-
     }
 
     public class TeacherRepository : Repository<Teacher>, ITeacherRepository
@@ -85,23 +80,23 @@ namespace DAL.Repositories
                                                         orderby g.Key
                                                         select new TeacherWithSalaryModel
                                                         {
-                                                            //TeacherId = g.Key,
-                                                            //TotalSalary = g.Sum(x => x.c.Salary),
-                                                            //FirstName = g.Min(x => x.t.FirstName),
-                                                            //LastName = g.Min(x => x.t.LastName),
-                                                            //Birthday = g.Min(x => x.t.Birthday),
-                                                            //Address = g.Min(x => x.t.Address),
-                                                            //Phone = g.Min(x => x.t.Phone),
-                                                            //Email = g.Min(x => x.t.Email)
-
                                                             TeacherId = g.Key,
                                                             TotalSalary = g.Sum(x => x.c.Salary),
-                                                            FirstName = g.First().t.FirstName,
-                                                            LastName = g.First().t.LastName,
-                                                            Birthday = g.First().t.Birthday,
-                                                            Address = g.First().t.Address,
-                                                            Phone = g.First().t.Phone,
-                                                            Email = g.First().t.Email
+                                                            FirstName = g.Min(x => x.t.FirstName),
+                                                            LastName = g.Min(x => x.t.LastName),
+                                                            Birthday = g.Min(x => x.t.Birthday),
+                                                            Address = g.Min(x => x.t.Address),
+                                                            Phone = g.Min(x => x.t.Phone),
+                                                            Email = g.Min(x => x.t.Email)
+
+                                                            //TeacherId = g.Key,
+                                                            //TotalSalary = g.Sum(x => x.c.Salary),
+                                                            //FirstName = g.First().t.FirstName,
+                                                            //LastName = g.First().t.LastName,
+                                                            //Birthday = g.First().t.Birthday,
+                                                            //Address = g.First().t.Address,
+                                                            //Phone = g.First().t.Phone,
+                                                            //Email = g.First().t.Email
                                                         });
 
             return query.ToList();

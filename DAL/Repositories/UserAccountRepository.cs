@@ -1,12 +1,12 @@
 ﻿using DAL.Context;
 using DAL.Entities;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public interface IUserAccountRepository
+    public interface IUserAccountRepository : IRepository<UserAccount>
     {
-        public List<UserAccount> Get();
         public UserAccount GetByLoginParameters(string email, string password);
     }
 
