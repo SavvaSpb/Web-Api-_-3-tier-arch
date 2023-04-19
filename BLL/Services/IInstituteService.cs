@@ -8,6 +8,5 @@ namespace BLL.Services
         InstituteModel GetInstituteById(int id);
         List<InstituteModel> Get();
         void Update(int id, InstituteModel course);
-
     }
 }

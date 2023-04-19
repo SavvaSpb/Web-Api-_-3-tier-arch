@@ -100,3 +100,7 @@ C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeF
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\obj\Debug\net6.0\ASP.NET Core_EF_CodeFirst.pdb
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\obj\Debug\net6.0\ASP.NET Core_EF_CodeFirst.genruntimeconfig.cache
 C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\obj\Debug\net6.0\ref\ASP.NET Core_EF_CodeFirst.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\appsettings.live.json
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\JWT.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\sgorbatiuk\source\repos\ASP.NET Core_EF_CodeFirst\ASP.NET Core_EF_CodeFirst\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Binder.dll

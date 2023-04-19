@@ -8,7 +8,7 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : ControllerBase
+    public class CourseController : AuthorizedController
     {
         private readonly ICourseService courseService;
         public CourseController(ICourseService courseService)
@@ -31,13 +31,13 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
         [HttpPost]
         public void Add([FromBody] CourseModel course)
         {
-           courseService.AddCourse(course);
+            courseService.AddCourse(course);
         }
 
         [HttpPut("{id}")]
         public void Update(int id, [FromBody] CourseUpdateModel courseUpdateModel)
         {
-            var courseModel = courseUpdateModel.MapToBusinessModel();
+            CourseModel courseModel = courseUpdateModel.MapToBusinessModel();
             courseService.Update(id, courseModel);
         }
     }

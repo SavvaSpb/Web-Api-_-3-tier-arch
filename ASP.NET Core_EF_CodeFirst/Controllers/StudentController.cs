@@ -6,7 +6,7 @@ namespace ASP.NET_Core_EF_CodeFirst.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentController : AuthorizedController
     {
         private readonly IStudentService studentService;
         public StudentController(IStudentService studentService)

@@ -7,10 +7,10 @@ namespace BLL.Services.Implementations
 {
     public class StudentService : IStudentService
     {
-        private readonly IStudentRepository repo;
+        private readonly IStudentRepository studentRepo;
         public StudentService(IStudentRepository repo)
         {
-            this.repo = repo;
+            this.studentRepo = repo;
         }
 
         public int AddStudent(StudentModel student)
@@ -25,45 +25,38 @@ namespace BLL.Services.Implementations
                 Email = student.Email
             };
 
-            int studentId = repo.Add(studentEntity);
+            int studentId = studentRepo.Add(studentEntity);
 
             return studentId;
         }
 
         public StudentModel GetStudentById(int id)
         {
-            var studentEntity = repo.GetById(id);
+            var studentEntity = studentRepo.GetById(id);
             if (studentEntity == null)
             {
-                throw new CustomException("Student doesn't exist");
+                throw new ValidationException("Student doesn't exist");
             }
 
             return new StudentModel
             {
                 StudentId = studentEntity.StudentId,
-
                 FirstName = studentEntity.FirstName,
-
                 LastName = studentEntity.LastName,
-
                 Birthday = studentEntity.Birthday,
-
                 Address = studentEntity.Address,
-
                 Phone = studentEntity.Phone,
-
                 Email = studentEntity.Email
-
             };
         }
 
         public List<StudentModel> Get()
         {
-            List<Student> studentEntities = repo.Get();
+            List<Student> studentEntities = studentRepo.Get();
 
             if (!studentEntities.Any())
             {
-                throw new CustomException("We have no any student");
+                throw new ValidationException("We have no any student");
             }
 
             var students = new List<StudentModel>();
@@ -82,7 +75,6 @@ namespace BLL.Services.Implementations
             }
             return students;
         }
-
         public void Update(int id, StudentModel student)
         {
             var studentEntity = new Student
@@ -96,7 +88,7 @@ namespace BLL.Services.Implementations
                 Email = student.Email
             };
 
-            repo.Update(id, studentEntity);
+            studentRepo.Update(id, studentEntity);
         }
     }
 }

@@ -8,10 +8,10 @@ namespace BLL.Services.Implementations
 {
     public class TeacherService : ITeacherService
     {
-        private readonly ITeacherRepository repo;
+        private readonly ITeacherRepository teacherRepo;
         public TeacherService(ITeacherRepository repo)
         {
-            this.repo = repo;
+            this.teacherRepo = repo;
         }
 
         public int AddTeacher(TeacherModel teacher)
@@ -26,44 +26,38 @@ namespace BLL.Services.Implementations
                 Email = teacher.Email
             };
 
-            int teacherId = repo.Add(teacherEntity);
+            int teacherId = teacherRepo.Add(teacherEntity);
 
             return teacherId;
         }
 
         public TeacherModel GetTeacherById(int id)
         {
-            var teacherEntity = repo.GetById(id);
+            var teacherEntity = teacherRepo.GetById(id);
             if (teacherEntity == null)
             {
-                throw new CustomException("Teacher doesn't exist");
+                throw new ValidationException("Teacher doesn't exist");
             }
 
             return new TeacherModel
             {
                 Id = teacherEntity.TeacherId,
-
                 FirstName = teacherEntity.FirstName,
-
                 LastName = teacherEntity.LastName,
-
                 Birthday = teacherEntity.Birthday,
-
                 Address = teacherEntity.Address,
-
                 Phone = teacherEntity.Phone,
-
                 Email = teacherEntity.Email
             };
         }
 
         public List<TeacherModel> Get()
         {
-            List<Teacher> teacherEntities = repo.Get();
+            List<Teacher> teacherEntities = teacherRepo.Get();
 
             if (!teacherEntities.Any())
             {
-                throw new CustomException("We have no any teacher");
+                throw new ValidationException("We have no any teacher");
             }
 
             var teachers = new List<TeacherModel>();
@@ -95,24 +89,25 @@ namespace BLL.Services.Implementations
                 Phone = teacher.Phone,
                 Email = teacher.Email
             };
-    
-            repo.Update(id, teacherEntity);
+
+            teacherRepo.Update(id, teacherEntity);
         }
 
         public List<TeacherModel> GetWithSalary()
         {
-            List<TeacherWithSalaryModel> teacherEntities = repo.GetWithSalary();
+            List<TeacherWithSalaryModel> teacherEntities = teacherRepo.GetWithSalary();
 
             if (!teacherEntities.Any())
             {
-                throw new CustomException("We have no any teachers");
+                throw new ValidationException("We have no any teachers");
             }
 
             var teachers = new List<TeacherModel>();
 
             foreach (var item in teacherEntities)
             {
-                teachers.Add(new TeacherModel {
+                teachers.Add(new TeacherModel
+                {
                     Id = item.TeacherId,
                     TotalSalary = item.TotalSalary,
                     FirstName = item.FirstName,

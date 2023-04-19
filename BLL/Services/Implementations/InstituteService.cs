@@ -7,10 +7,10 @@ namespace BLL.Services.Implementations
 {
     public class InstituteService : IInstituteService
     {
-        private readonly IInstituteRepository repo;
+        private readonly IInstituteRepository instituteRepo;
         public InstituteService(IInstituteRepository repo)
         {
-            this.repo = repo;
+            this.instituteRepo = repo;
         }
 
         public int AddInstitute(InstituteModel institute)
@@ -20,17 +20,17 @@ namespace BLL.Services.Implementations
                 InstituteTypeName = institute.InstituteTypeName
             };
 
-            int instituteId = repo.Add(instituteEntity);
+            int instituteId = instituteRepo.Add(instituteEntity);
 
             return instituteId;
         }
 
         public InstituteModel GetInstituteById(int id)
         {
-            var instituteEntity = repo.GetById(id);
+            var instituteEntity = instituteRepo.GetById(id);
             if (instituteEntity == null)
             {
-                throw new CustomException("Institute doesn't exist");
+                throw new ValidationException("Institute doesn't exist");
             }
 
             return new InstituteModel
@@ -42,11 +42,11 @@ namespace BLL.Services.Implementations
 
         public List<InstituteModel> Get()
         {
-            List<Institute> instituteEntities = repo.Get();
+            List<Institute> instituteEntities = instituteRepo.Get();
 
             if (!instituteEntities.Any())
             {
-                throw new CustomException("We have no any institute");
+                throw new ValidationException("We have no any institute");
             }
 
             var institutions = new List<InstituteModel>();
@@ -66,7 +66,7 @@ namespace BLL.Services.Implementations
                 InstituteTypeName = institute.InstituteTypeName
             };
 
-            repo.Update(id, instituteEntity);
+            instituteRepo.Update(id, instituteEntity);
         }
     }
 }
